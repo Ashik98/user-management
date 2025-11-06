@@ -23,8 +23,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["node"]
+    "types": ["node", "express"],
+    "typeRoots": ["./types", "./node_modules/@types"]   // 👈 Add this
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "types/**/*.d.ts"],           // 👈 Corrected
   "exclude": ["node_modules", "dist"]
 }
