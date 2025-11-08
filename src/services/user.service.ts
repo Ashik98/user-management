@@ -1,4 +1,4 @@
-import { AppDataSource } from '../ormconfig';
+import { AppDataSource } from '../config/data-source';
 import { User } from '../entities/User.entity';
 import { AppError } from '../utils/AppError';
 import { PasswordUtil } from '../utils/password.util';

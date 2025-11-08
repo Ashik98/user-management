@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { AppDataSource } from '../ormconfig';
+import { AppDataSource } from './data-source';
 
 export const getDataSource = (): DataSource => {
   return AppDataSource;

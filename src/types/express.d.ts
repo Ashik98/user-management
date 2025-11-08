@@ -1,4 +1,6 @@
-import { User } from '../entities/User.entity';
+// src/types/express.d.ts
+
+export {};
 
 declare global {
   namespace Express {
@@ -12,5 +14,3 @@ declare global {
     }
   }
 }
-
-export {};

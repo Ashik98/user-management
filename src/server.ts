@@ -1,17 +1,35 @@
 import 'reflect-metadata';
+import { config } from 'dotenv';
+config();
+
 import app from './app';
-import { AppDataSource } from './ormconfig';
+import { AppDataSource } from './config/data-source';  // ← Updated
+import { initializeDatabase } from './config/init-database';
 import logger from './config/logger';
 
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
-    // Initialize Database Connection
-    await AppDataSource.initialize();
+    // Step 1: Create database if it doesn't exist
+    logger.info('🔍 Checking database...');
+    await initializeDatabase();
+
+    // Step 2: Initialize Database Connection
+    logger.info('🔌 Connecting to database...');
+    if (!AppDataSource.isInitialized) {
+      await AppDataSource.initialize();
+    }
     logger.info('✅ Database connection established successfully');
 
-    // Start Express Server
+    // Step 3: Run migrations (if enabled)
+    if (process.env.RUN_MIGRATIONS === 'true') {
+      logger.info('🔄 Running migrations...');
+      await AppDataSource.runMigrations();
+      logger.info('✅ Migrations completed');
+    }
+
+    // Step 4: Start Express Server
     app.listen(PORT, () => {
       logger.info(`🚀 Server running on port ${PORT}`);
       logger.info(`📚 Swagger Documentation: http://localhost:${PORT}/api-docs`);

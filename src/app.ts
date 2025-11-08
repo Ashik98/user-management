@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Health Check
-app.get('/health', (_req: Request, res: Response) => {
+app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'success',
     message: 'Server is healthy',
@@ -67,15 +67,14 @@ app.get('/health', (_req: Request, res: Response) => {
   });
 });
 
-
 // Swagger Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // API Routes
 app.use(process.env.API_PREFIX || '/api/v1', routes);
 
-// 404 Handler
-app.all('*', (req: Request, res: Response) => {
+// 404 Handler - Fixed for Express v5 compatibility
+app.use((req: Request, res: Response) => {
   res.status(404).json({
     status: 'error',
     message: `Route ${req.originalUrl} not found`,

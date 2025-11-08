@@ -1,4 +1,4 @@
-import { AppDataSource } from '../ormconfig';
+import { AppDataSource } from '../config/data-source';
 import { Role } from '../entities/Role.entity';
 import { UserRole } from '../entities/UserRole.entity';
 import { RolePermission } from '../entities/RolePermission.entity';
