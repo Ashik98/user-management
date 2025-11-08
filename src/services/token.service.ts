@@ -1,4 +1,4 @@
-import { AppDataSource } from '../ormconfig';
+import { AppDataSource } from '../config/data-source';
 import { RefreshToken } from '../entities/RefreshToken.entity';
 
 export class TokenService {
